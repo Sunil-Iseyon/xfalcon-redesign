@@ -1,0 +1,53 @@
+/* What you get - three quiet numbered cards */
+
+.wyg-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 3rem;
+  padding: 0;
+  list-style: none;
+}
+
+.wyg-card {
+  padding: 2rem 1.75rem;
+  transition: border-color 0.15s ease;
+}
+.wyg-card:hover {
+  border-color: var(--border-strong);
+}
+
+.wyg-marker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.wyg-title {
+  margin-top: 1rem;
+}
+
+.wyg-description {
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 900px) {
+  .wyg-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .wyg-card {
+    padding: 2.5rem 2rem;
+  }
+}
+
+.wyg-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}

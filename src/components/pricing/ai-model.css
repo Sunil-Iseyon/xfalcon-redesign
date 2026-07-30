@@ -1,0 +1,97 @@
+/* AI model - three paths, BYOK is the default */
+
+.ai-section {
+  padding-top: 0;
+}
+
+.ai-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 3rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ai-card {
+  padding: 2rem 1.75rem;
+}
+
+.ai-card-default {
+  border-color: var(--accent);
+}
+
+/* Same mono voice as .eyebrow, muted instead of accent */
+.ai-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.ai-card-default .ai-tag {
+  color: var(--accent);
+}
+
+.ai-name {
+  margin-top: 1rem;
+}
+
+.ai-price {
+  margin-top: 1.25rem;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--text);
+}
+
+.ai-price-note {
+  margin-top: 0.375rem;
+}
+
+.ai-points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ai-point {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  padding-left: 0.875rem;
+  position: relative;
+}
+
+.ai-point::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 1px;
+  background: var(--border-strong);
+}
+
+.ai-card-default .ai-point::before {
+  background: var(--accent);
+}
+
+@media (min-width: 1000px) {
+  .ai-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .ai-card {
+    padding: 2.25rem 2rem;
+  }
+}

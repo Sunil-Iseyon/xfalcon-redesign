@@ -1,0 +1,31 @@
+{
+  "title": "Security and Trust",
+  "lastUpdated": "2026-07-29",
+  "intro": "How xFalcon handles confidentiality, output accuracy, and user responsibilities. This page summarizes the disclosures that apply to Iseyon Analytics and its affiliates.",
+  "sections": [
+    {
+      "heading": "Confidential and Proprietary Information",
+      "body": "The information, software, documentation, analytics, and outputs provided through xFalcon may contain confidential and proprietary information. Users are responsible for ensuring that only authorized personnel access the platform and any connected or uploaded data."
+    },
+    {
+      "heading": "Your Data Stays Where It Is",
+      "body": "xFalcon connects directly to your existing warehouse and queries only explicitly registered tables. There is no data migration and no copy of your warehouse held by Iseyon. Data stewards control table visibility and access rules."
+    },
+    {
+      "heading": "Disclaimer of Accuracy",
+      "body": "xFalcon provides AI-assisted analytics and decision-support capabilities. While validation, business rules, and quality controls are applied to improve accuracy, xFalcon does not guarantee the completeness, accuracy, or suitability of any output for a particular business, legal, financial, regulatory, or operational purpose. Users remain solely responsible for reviewing, validating, and approving all decisions derived from platform outputs before relying upon them."
+    },
+    {
+      "heading": "User Obligations",
+      "body": "By accessing and using xFalcon, users acknowledge their obligation to maintain the confidentiality of all proprietary information, datasets, credentials, documentation, and intellectual property made available through the platform. Unauthorized disclosure, reproduction, distribution, or use of confidential information is strictly prohibited and may result in legal action as outlined in applicable agreements, including any executed Non-Disclosure Agreement."
+    },
+    {
+      "heading": "Limitation of Liability",
+      "body": "To the maximum extent permitted by law, Iseyon Analytics, its affiliates, employees, contractors, and partners shall not be liable for any direct, indirect, incidental, consequential, special, or punitive damages arising from the use of, reliance upon, or inability to use xFalcon, its documentation, analytics, recommendations, or outputs."
+    },
+    {
+      "heading": "Contact",
+      "body": "Questions about security, confidentiality, or these disclosures: info@iseyon.com"
+    }
+  ]
+}

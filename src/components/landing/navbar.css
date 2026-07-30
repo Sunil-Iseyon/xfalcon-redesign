@@ -1,0 +1,129 @@
+/* Navbar - fixed, translucent, token-driven */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 4.25rem;
+}
+
+.navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+
+/* Falcon mark is 228x162 (1.41:1) - width set, height follows. Never square. */
+.navbar-logo img {
+  width: 38px;
+  height: auto;
+}
+
+.navbar-wordmark {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.navbar-wordmark-x {
+  color: var(--accent);
+}
+
+.navbar-links {
+  display: none;
+  align-items: center;
+  gap: 1.75rem;
+  margin-inline: auto;
+}
+
+.navbar-link {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.15s ease;
+}
+
+.navbar-link:hover {
+  color: var(--accent);
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.navbar-badge {
+  display: none;
+}
+
+.navbar-cta {
+  display: none;
+}
+
+.navbar-menu-btn {
+  display: inline-flex;
+}
+
+/* Mobile dropdown */
+.navbar-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1.5rem 1.25rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-mobile-link {
+  padding: 0.75rem 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-mobile-link:last-of-type {
+  border-bottom: none;
+}
+
+.navbar-mobile-cta {
+  margin-top: 0.75rem;
+  align-self: flex-start;
+}
+
+@media (min-width: 900px) {
+  .navbar-links {
+    display: flex;
+  }
+  .navbar-cta {
+    display: inline-flex;
+  }
+  .navbar-menu-btn {
+    display: none;
+  }
+  .navbar-mobile {
+    display: none;
+  }
+}
+
+@media (min-width: 1100px) {
+  .navbar-badge {
+    display: inline-flex;
+  }
+}

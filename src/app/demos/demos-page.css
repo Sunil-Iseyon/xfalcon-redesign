@@ -1,0 +1,45 @@
+/* Demos index - compact hero, then one grid per industry category */
+
+.demos-hero {
+  padding-top: 9rem;
+  padding-bottom: 3rem;
+}
+
+.demos-hero-heading {
+  margin-top: 1.25rem;
+  max-width: 44rem;
+}
+
+.demos-hero-subhead {
+  margin-top: 1.25rem;
+  max-width: 38rem;
+}
+
+.demos-groups {
+  padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.demos-group-title {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.demos-empty {
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .demos-hero {
+    padding-top: 10rem;
+    padding-bottom: 4rem;
+  }
+
+  .demos-groups {
+    padding-bottom: 7rem;
+    gap: 4.5rem;
+  }
+}

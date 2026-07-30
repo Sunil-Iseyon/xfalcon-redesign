@@ -1,0 +1,54 @@
+/* Hero - message above the fold, no gimmicks */
+
+.hero {
+  padding-top: 10rem;
+  padding-bottom: 5rem;
+  position: relative;
+}
+
+/* Quiet light-mode depth; dark mode inherits the body radial glow */
+[data-theme="light"] .hero {
+  background:
+    radial-gradient(900px 480px at 80% -20%, rgba(46, 209, 237, 0.08) 0%, transparent 60%),
+    transparent;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 80rem;
+}
+
+.hero-heading {
+  margin-top: 1.25rem;
+  max-width: 56rem;
+}
+
+.hero-subhead {
+  margin-top: 1.5rem;
+  max-width: 38rem;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 3rem;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-top: 12rem;
+    padding-bottom: 7rem;
+  }
+}

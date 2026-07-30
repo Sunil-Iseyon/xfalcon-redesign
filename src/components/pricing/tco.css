@@ -1,0 +1,85 @@
+/* Two-year TCO - plain horizontal bars, width driven by --bar-scale (0-1) */
+
+.tco-section {
+  padding-top: 0;
+}
+
+.tco-source {
+  margin-top: 1rem;
+}
+
+.tco-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 3rem;
+  max-width: 52rem;
+}
+
+.tco-row-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tco-label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.tco-cost {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tco-row-xf .tco-label,
+.tco-row-xf .tco-cost {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.tco-track {
+  margin-top: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+
+.tco-bar {
+  height: 100%;
+  width: calc(var(--bar-scale, 0) * 100%);
+  border-radius: 9999px;
+  background: var(--border-strong);
+}
+
+.tco-row-xf .tco-bar {
+  background: var(--accent);
+}
+
+.tco-note {
+  margin-top: 0.5rem;
+  color: var(--accent);
+}
+
+.tco-closing {
+  margin-top: 2.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+@media (min-width: 768px) {
+  .tco-rows {
+    margin-top: 3.5rem;
+  }
+
+  .tco-label,
+  .tco-cost {
+    font-size: 1rem;
+  }
+}

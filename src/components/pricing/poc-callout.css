@@ -1,0 +1,86 @@
+/* Proof of concept - one wide sunken band, price left, checklist right */
+
+.poc-section {
+  padding-top: 0;
+}
+
+.poc-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 2.25rem 1.75rem;
+}
+
+.poc-heading {
+  margin-top: 0.875rem;
+}
+
+.poc-price {
+  margin-top: 1.25rem;
+  font-size: clamp(2.75rem, 6vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.poc-timeline {
+  margin-top: 0.5rem;
+}
+
+.poc-includes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.625rem 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.poc-include {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+}
+
+.poc-marker {
+  flex: none;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 1px;
+  background: var(--accent);
+  transform: translateY(-0.125rem);
+}
+
+.poc-include-text {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.poc-guarantee {
+  margin-top: 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--text);
+  max-width: 34rem;
+}
+
+.poc-cta {
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 700px) {
+  .poc-includes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .poc-card {
+    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+    gap: 3.5rem;
+    padding: 3rem 2.75rem;
+    align-items: start;
+  }
+}

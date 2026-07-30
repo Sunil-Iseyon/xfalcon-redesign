@@ -1,0 +1,23 @@
+{
+  "title": "Terms of Service",
+  "lastUpdated": "July 28, 2026",
+  "intro": "These Terms of Service govern access to and use of the xFalcon platform, including its documentation, analytics, and AI-assisted outputs.",
+  "sections": [
+    {
+      "heading": "1. Authorized Access & Use",
+      "body": "The information, software, documentation, analytics, and outputs provided through xFalcon may contain confidential and proprietary information. Users are responsible for ensuring that only authorized personnel access the platform and any connected or uploaded data."
+    },
+    {
+      "heading": "2. AI-Assisted Analytics Disclaimer",
+      "body": "xFalcon provides AI-assisted analytics and decision-support capabilities. While reasonable measures are implemented to improve accuracy through validation, business rules, and quality controls, xFalcon does not guarantee the completeness, accuracy, or suitability of any output for a particular business, legal, financial, regulatory, or operational purpose. Users remain solely responsible for reviewing, validating, and approving all decisions, actions, and conclusions derived from platform outputs before relying upon them."
+    },
+    {
+      "heading": "3. Confidentiality Obligations",
+      "body": "By accessing and using xFalcon, users acknowledge their obligation to maintain the confidentiality of all proprietary information, datasets, credentials, documentation, and intellectual property made available through the platform. Unauthorized disclosure, reproduction, distribution, or use of confidential information is strictly prohibited and may result in legal action as outlined in applicable agreements, including any executed Non-Disclosure Agreement."
+    },
+    {
+      "heading": "4. Limitation of Liability",
+      "body": "To the maximum extent permitted by law, xFalcon, its affiliates, employees, contractors, and partners shall not be liable for any direct, indirect, incidental, consequential, special, or punitive damages arising from the use of, reliance upon, or inability to use xFalcon, its documentation, analytics, recommendations, or outputs."
+    }
+  ]
+}

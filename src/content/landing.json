@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "eyebrow": "BUSINESS INTELLIGENCE FOR THE AI ERA",
+    "heading": "Know what changed. See why. Decide what to do.",
+    "subhead": "xFalcon works directly on your warehouse and turns live data into governed answers, morning briefs, and ready-to-present work.",
+    "primaryCta": {
+      "label": "Book a demo",
+      "href": "mailto:info@iseyon.com?subject=xFalcon%20demo%20request"
+    },
+    "secondaryCta": {
+      "label": "See how it works",
+      "href": "/#how-it-works"
+    },
+    "statPills": [
+      "4-6 weeks to live",
+      "Zero data migration",
+      "75-93% lower two-year TCO",
+      "Every answer checked"
+    ]
+  },
+  "whatYouGet": {
+    "eyebrow": "WHAT YOU GET",
+    "heading": "Answers people can actually trust",
+    "items": [
+      {
+        "title": "It checks before it answers",
+        "description": "Every result is tested against live warehouse data. If the question is unclear, xFalcon asks."
+      },
+      {
+        "title": "It keeps what your team learns",
+        "description": "Metrics, decisions, and corrections stay with the platform instead of walking out with an analyst."
+      },
+      {
+        "title": "It gets beyond the chart",
+        "description": "See what changed, why it matters, and what to do next - with the evidence underneath."
+      }
+    ]
+  },
+  "demosTeaser": {
+    "eyebrow": "LIVE DEMOS",
+    "heading": "See it on data like yours",
+    "subheading": "Interactive demo portals across healthcare, retail, manufacturing, finance, and more.",
+    "ctaLabel": "Browse all demos"
+  },
+  "cta": {
+    "heading": "Try it on your data",
+    "description": "A 2-4 week proof of concept on one subject area, with a working use case and ROI report. The fee is credited if you move ahead.",
+    "ctaLabel": "Book a demo"
+  },
+  "contactInfo": {
+    "email": "info@iseyon.com"
+  },
+  "footer": {
+    "description": "Business intelligence for the AI era. xFalcon works directly on your warehouse - no migration, governed answers, ready-to-present work.",
+    "copyright": "© 2026 Iseyon. All rights reserved."
+  }
+}

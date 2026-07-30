@@ -1,0 +1,415 @@
+/* How it works - sticky-pin scrollytelling */
+
+.hiw-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* --- Scenes (left column) --- */
+
+.hiw-scenes {
+  display: flex;
+  flex-direction: column;
+}
+
+.hiw-scene {
+  padding-block: 3rem;
+  border-bottom: 1px solid var(--border);
+  opacity: 1;
+}
+
+.hiw-scene:last-child {
+  border-bottom: none;
+}
+
+.hiw-scene-step {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+.hiw-scene-title {
+  margin-top: 0.75rem;
+}
+
+.hiw-scene-body {
+  margin-top: 0.625rem;
+  max-width: 26rem;
+}
+
+.hiw-scene-tag {
+  margin-top: 1rem;
+}
+
+/* --- Pinned panel (right column) --- */
+
+.hiw-stickywrap {
+  display: none;
+}
+
+.hiw-panel {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.hiw-panel-chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-sunken);
+}
+
+.hiw-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background: var(--border-strong);
+}
+
+.hiw-url {
+  margin-left: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  background: var(--surface);
+}
+
+.hiw-viz-stack {
+  position: relative;
+  min-height: 22rem;
+}
+
+.hiw-viz {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.hiw-viz-active {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.hiw-viz-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.hiw-live-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- Progress dots --- */
+
+.hiw-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
+}
+
+.hiw-dot-btn {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.hiw-dot-btn-active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* --- Viz internals --- */
+
+.hiw-schema {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.hiw-schema-node {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  background: var(--surface);
+}
+
+.hiw-schema-node-core {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.hiw-schema-links {
+  display: flex;
+  gap: 3rem;
+  height: 1.75rem;
+}
+
+.hiw-schema-link {
+  width: 1px;
+  background: var(--border-strong);
+}
+
+.hiw-schema-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.hiw-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.hiw-chat-question {
+  align-self: flex-end;
+  max-width: 85%;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 0.875rem 0.875rem 0.25rem 0.875rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  color: var(--text);
+}
+
+.hiw-chat-answer {
+  align-self: flex-start;
+  max-width: 92%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.875rem 0.875rem 0.875rem 0.25rem;
+  padding: 1rem;
+}
+
+.hiw-chat-answer-lead {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.hiw-drill {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: 0.875rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
+}
+
+.hiw-drill-row {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.hiw-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.hiw-check {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.hiw-check::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.375rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 0.1875rem;
+}
+
+.hiw-check-pass::before {
+  background: var(--accent);
+}
+
+.hiw-check-warn::before {
+  background: var(--text-muted);
+}
+
+.hiw-systems {
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hiw-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  height: 6rem;
+}
+
+.hiw-bar {
+  flex: 1;
+  height: 45%;
+  border-radius: 0.375rem 0.375rem 0 0;
+  background: var(--border-strong);
+}
+
+.hiw-bar-2 {
+  height: 70%;
+}
+
+.hiw-bar-3 {
+  height: 55%;
+}
+
+.hiw-bar-accent {
+  height: 90%;
+  background: var(--accent);
+}
+
+.hiw-sowhat {
+  border: 1px solid var(--accent);
+  border-radius: 0.75rem;
+  background: var(--accent-soft);
+  padding: 0.875rem 1rem;
+}
+
+.hiw-sowhat-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.hiw-sowhat-text {
+  margin-top: 0.375rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.hiw-outputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* --- Mobile: unpin, stack viz under each scene --- */
+
+.hiw-mobile-viz {
+  margin-top: 1.5rem;
+}
+
+.hiw-mobile-viz .hiw-viz-body {
+  min-height: 0;
+}
+
+/* --- Desktop: pin --- */
+
+@media (min-width: 900px) {
+  .hiw-layout {
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 4rem;
+  }
+
+  .hiw-scene {
+    min-height: 24rem;
+    padding-block: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    opacity: 0.35;
+    transition: opacity 0.3s ease;
+  }
+
+  .hiw-scene-active {
+    opacity: 1;
+  }
+
+  .hiw-mobile-viz {
+    display: none;
+  }
+
+  .hiw-stickywrap {
+    display: block;
+    align-self: stretch;
+  }
+
+  .hiw-sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    padding-block: 2rem;
+  }
+}
+
+/* --- Reduced motion: no crossfade/dimming, tracking still works --- */
+
+.hiw-reduced .hiw-viz,
+.hiw-reduced .hiw-scene,
+.hiw-reduced .hiw-dot-btn {
+  transition: none;
+}
+
+.hiw-reduced .hiw-viz {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hiw-viz,
+  .hiw-scene,
+  .hiw-dot-btn {
+    transition: none;
+  }
+  .hiw-scene {
+    opacity: 1;
+  }
+}

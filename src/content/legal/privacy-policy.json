@@ -1,0 +1,51 @@
+{
+  "title": "Privacy Policy",
+  "lastUpdated": "July 28, 2026",
+  "intro": "At xFalcon, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use the xFalcon platform.",
+  "sections": [
+    {
+      "heading": "1. Information We Collect",
+      "body": "When you use our platform, we may collect the following types of personal information:\n\n- Names\n- Email addresses\n\nWe do not collect any sensitive personal data, such as health information or biometric data."
+    },
+    {
+      "heading": "2. How We Use Your Information",
+      "body": "We use the information we collect for the following purposes:\n\n- To provide our services to you\n- To send you marketing communications about our products and services"
+    },
+    {
+      "heading": "3. Data Sharing and Disclosure",
+      "body": "We do not share your personal information with any third parties."
+    },
+    {
+      "heading": "4. Data Retention",
+      "body": "We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy. We will delete your data upon request."
+    },
+    {
+      "heading": "5. Your Rights",
+      "body": "You have the right to request the deletion of your personal information. To exercise this right, please email us at privacy@xfalcon.ai."
+    },
+    {
+      "heading": "6. Security & Confidentiality",
+      "body": "We employ industry-standard security measures to protect your personal information from unauthorized access, use, or disclosure. The platform, including its documentation, analytics, and outputs, may also contain confidential and proprietary information, and access should be limited to authorized personnel only."
+    },
+    {
+      "heading": "7. Cookies and Tracking Technologies",
+      "body": "Our platform uses cookies to collect information about your browsing behavior for visitor analytics. Cookies are small text files stored on your device that help us understand how you interact with our platform and improve your user experience."
+    },
+    {
+      "heading": "8. Children's Privacy",
+      "body": "Our platform is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe that your child has provided us with personal information, please contact us at privacy@xfalcon.ai."
+    },
+    {
+      "heading": "9. International Data Transfers",
+      "body": "All personal information collected through our platform is processed within the United States. We do not transfer your data across international borders."
+    },
+    {
+      "heading": "10. Contact Information",
+      "body": "If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:\n\nxFalcon\nprivacy@xfalcon.ai"
+    },
+    {
+      "heading": "11. Changes to This Privacy Policy",
+      "body": "We may update this Privacy Policy from time to time. If we make any changes, we will notify you by posting the updated policy on our platform. We encourage you to review this policy periodically to stay informed about how we are protecting your personal information."
+    }
+  ]
+}

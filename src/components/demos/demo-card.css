@@ -1,0 +1,84 @@
+/* Demo card - screenshot on top, label block below. Quiet accent hover. */
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .demo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .demo-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  transition: border-color 0.15s ease;
+}
+.demo-card:hover {
+  border-color: var(--accent);
+}
+
+.demo-card-thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-sunken);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.demo-card-image {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.demo-card-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+/* Falcon mark is 228x162 (1.41:1) - width set, height follows. Never square. */
+.demo-card-placeholder img {
+  width: 3rem;
+  height: auto;
+  opacity: 0.55;
+}
+
+.demo-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.demo-card-title {
+  margin: 0;
+}
+
+.demo-card-description {
+  margin: 0;
+  font-size: 0.9375rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}

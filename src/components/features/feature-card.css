@@ -1,0 +1,56 @@
+/* Feature card - optional 16:9 demo poster above a text block */
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* The video sits flush to the card edges, squaring off its own bottom corners */
+.feature-card .feature-video {
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.feature-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem;
+}
+
+.feature-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.feature-card-title {
+  margin: 0;
+}
+
+/* Accent-coloured variant of .badge-soon for shipped-recently features */
+.feature-card-badge {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.feature-card-description {
+  margin-top: 0.75rem;
+}
+
+.feature-card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .feature-card-body {
+    padding: 2rem;
+  }
+}
