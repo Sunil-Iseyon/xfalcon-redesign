@@ -1,0 +1,83 @@
+<!doctype html>
+<!--
+  Source of truth for public/brand/hero/og_1200x630.png - the Open Graph card
+  every LinkedIn/Slack/Twitter share of the site renders.
+
+  Regenerate with:  node scripts/og/generate-og-image.mjs
+
+  It is authored as HTML and rasterised with headless Chrome rather than drawn
+  in a design tool so it uses the real self-hosted Hanken Grotesk file and the
+  real token values - the card cannot drift from the site's own typography, and
+  editing the copy is a one-line change here instead of a design request.
+
+  The previous asset read "XFalcon" (a spelling the brand explicitly forbids)
+  under the retired tagline "AI-native workflows for teams." - QA SEO audit
+  P1-1. Keep the lockup as mark + "xFalcon" with the x in accent.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face {
+    font-family: 'Hanken Grotesk';
+    src: url('../../src/app/fonts/HankenGrotesk-Variable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: block;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    /* Matches the site's dark theme: navy pool top-left, faint cyan bottom-right */
+    background:
+      radial-gradient(1200px 800px at 12% -12%, #0d1e38 0%, transparent 60%),
+      radial-gradient(900px 600px at 92% 112%, rgba(46, 209, 237, 0.10) 0%, transparent 55%),
+      #061122;
+    color: #eaf2ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 88px 96px;
+  }
+  .lockup { display: flex; align-items: center; gap: 20px; }
+  .lockup img { width: 96px; height: 68px; display: block; }
+  .wordmark { font-size: 44px; font-weight: 600; letter-spacing: -0.01em; line-height: 1; }
+  .wordmark .x { color: #2ed1ed; }
+  h1 {
+    margin-top: 56px;
+    font-size: 76px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.06;
+    max-width: 940px;
+  }
+  .rule {
+    margin-top: 44px;
+    width: 132px;
+    height: 5px;
+    border-radius: 999px;
+    background: #2ed1ed;
+  }
+  .tagline {
+    margin-top: 28px;
+    font-size: 29px;
+    font-weight: 400;
+    line-height: 1.35;
+    color: #b8c0cc;
+    max-width: 900px;
+    /* Balanced, so the second line is not a two-word orphan */
+    text-wrap: balance;
+  }
+</style>
+</head>
+<body>
+  <div class="lockup">
+    <img src="../../public/brand/logo/mark_transparent_on_dark.png" alt="">
+    <span class="wordmark"><span class="x">x</span>Falcon</span>
+  </div>
+  <h1>Know what changed. See why. Decide what to do.</h1>
+  <div class="rule"></div>
+  <p class="tagline">Business intelligence for the AI era - governed answers straight from your own warehouse.</p>
+</body>
+</html>

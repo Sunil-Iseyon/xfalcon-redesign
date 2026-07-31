@@ -124,6 +124,14 @@
   color: var(--text);
 }
 
+/* Derivation line under "Total monthly" - quiet, and must not inherit the
+   600 weight from the label it sits inside. */
+.tier-total-note {
+  display: block;
+  margin-top: 0.125rem;
+  font-weight: 400;
+}
+
 .tier-total-value {
   margin: 0;
   font-size: 1.125rem;

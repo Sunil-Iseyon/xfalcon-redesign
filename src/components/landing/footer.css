@@ -48,6 +48,7 @@
 .footer-email {
   display: inline-block;
   margin-top: 0.75rem;
+  padding-block: 0.25rem;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--accent);
@@ -66,12 +67,15 @@
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
+  /* Row gap moved into the links themselves so their hit areas touch (R4-16) */
+  gap: 0;
   padding: 0;
   list-style: none;
 }
 
 .footer-link {
+  display: inline-block;
+  padding-block: 0.3125rem;
   font-size: 0.9375rem;
   color: var(--text-secondary);
   transition: color 0.15s ease;
@@ -95,5 +99,58 @@
   .footer-grid {
     grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 2rem;
+  }
+}
+
+/*
+  Desktop-app line (QA R1-11): one row above the copyright, badge + sentence.
+  Deliberately quiet - it replaced a full section, and the point was to stop an
+  unshipped feature competing with shipped ones.
+*/
+.footer-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 2.5rem;
+}
+
+.footer-note-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.footer-note-link {
+  display: inline-block;
+  /* Clears the 24px WCAG 2.5.8 minimum for a mouse; coarse pointers get 44 below */
+  padding-block: 0.25rem;
+  color: var(--accent);
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.footer-note-link:hover {
+  border-bottom-color: var(--accent);
+}
+
+@media (pointer: coarse) {
+  .footer-note-link {
+    padding-block: 0.5rem;
+  }
+}
+
+/* Touch: 33px is fine for a mouse (clears the 24px AA minimum) but these are
+   nine stacked links on a phone - see the two-tier rationale in globals.css. */
+@media (pointer: coarse) {
+  .footer-link {
+    padding-block: 0.6875rem;
+  }
+
+  .footer-email,
+  .footer-logo {
+    display: inline-block;
+    padding-block: 0.5rem;
   }
 }

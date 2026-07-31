@@ -14,8 +14,10 @@
   flex-direction: column;
 }
 
+/* 2rem, not 3: five scenes each stack copy AND a full inline panel on mobile,
+   which made how-it-works 3,839px of an 11,949px page (QA R4-17). */
 .hiw-scene {
-  padding-block: 3rem;
+  padding-block: 2rem;
   border-bottom: 1px solid var(--border);
   opacity: 1;
 }
@@ -127,26 +129,51 @@
 
 /* --- Progress dots --- */
 
+/*
+  The visible dot is a ::before; the button itself is a transparent 24px box
+  (44px on touch). It was a bare 10x10 button - under WCAG 2.5.8's 24px AA
+  minimum and a genuinely hard target (QA R4-16). Row gap is 0 because the
+  buttons' own transparent padding now provides the spacing.
+*/
 .hiw-dots {
   display: flex;
   justify-content: center;
-  gap: 0.625rem;
+  gap: 0;
   margin-top: 1.25rem;
 }
 
 .hiw-dot-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.hiw-dot-btn::before {
+  content: '';
   width: 0.625rem;
   height: 0.625rem;
   border-radius: 9999px;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--border-interactive);
   background: transparent;
-  cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.hiw-dot-btn-active {
+.hiw-dot-btn-active::before {
   background: var(--accent);
   border-color: var(--accent);
+}
+
+@media (pointer: coarse) {
+  .hiw-dot-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
 }
 
 /* --- Viz internals --- */
@@ -282,6 +309,88 @@
   text-transform: uppercase;
 }
 
+/* Scene 04 - three phrasings converging on one governed number. The three
+   asks are visually equal so no single one reads as the "correct" question. */
+.hiw-asks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.hiw-ask {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 0.625rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.hiw-ask-who {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  min-width: 2rem;
+}
+
+.hiw-ask-text {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+/* Three short rules that taper inward - a converge cue without an SVG. */
+.hiw-converge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  height: 1.5rem;
+}
+
+.hiw-converge-line {
+  width: 1px;
+  background: var(--border-strong);
+}
+.hiw-converge-line:nth-child(1),
+.hiw-converge-line:nth-child(3) {
+  height: 0.625rem;
+}
+.hiw-converge-line:nth-child(2) {
+  height: 1rem;
+  background: var(--accent);
+}
+
+.hiw-one-answer {
+  background: var(--surface-sunken);
+  border: 1px solid var(--accent);
+  border-radius: 0.75rem;
+  padding: 1rem 1.125rem;
+  text-align: center;
+}
+
+.hiw-one-answer-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--text);
+}
+
+.hiw-one-answer-rule {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
 .hiw-bars {
   display: flex;
   align-items: flex-end;
@@ -341,7 +450,7 @@
 /* --- Mobile: unpin, stack viz under each scene --- */
 
 .hiw-mobile-viz {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .hiw-mobile-viz .hiw-viz-body {
@@ -356,6 +465,22 @@
     gap: 4rem;
   }
 
+  /*
+    Active/inactive is a COLOUR change, not an opacity change (QA R4-22).
+
+    `opacity: 0.35` on the inactive scenes put their body copy at 1.71:1 and
+    their step numbers at 1.40:1 - and since four of five scenes are inactive at
+    any scroll position, the section's entire narrative was below AA nearly all
+    the time. Opacity cannot be tuned out of the problem: at 0.8, secondary text
+    still only reaches 4.09:1 against the tinted background and the accent only
+    2.24:1, because opacity attenuates contrast against the backdrop rather than
+    just "greying out".
+
+    So the title steps down one level (--text -> --text-secondary, both AAA) and
+    the step number goes muted -> accent. The panel crossfade and the progress
+    dots still carry the strong active signal; this column no longer has to
+    become illegible to indicate focus.
+  */
   .hiw-scene {
     min-height: 24rem;
     padding-block: 5rem;
@@ -363,39 +488,83 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    opacity: 0.35;
-    transition: opacity 0.3s ease;
   }
 
-  .hiw-scene-active {
-    opacity: 1;
+  .hiw-scene .hiw-scene-title {
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+  }
+
+  .hiw-scene .hiw-scene-step {
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+  }
+
+  .hiw-scene-active .hiw-scene-title {
+    color: var(--text);
+  }
+
+  .hiw-scene-active .hiw-scene-step {
+    color: var(--accent);
   }
 
   .hiw-mobile-viz {
     display: none;
   }
 
+  /*
+    The wrapper is the sticky element, not the panel inside it.
+
+    It previously pinned `.hiw-sticky` as a 100vh box with `justify-content:
+    center`, which meant the panel sat at viewport centre while its sticky box
+    was anchored to the wrapper's top - so arriving at the section, the panel
+    scrolled with the page for most of a viewport before sticky engaged, and
+    `top: 0` parked it under the fixed 4.25rem navbar.
+
+    Sticky on the grid item with `align-self: start` pins the moment the
+    wrapper's top reaches the offset (level with scene 01) and releases when
+    the grid row ends (bottom of the last scene), because the row is sized by
+    the scenes column beside it.
+  */
   .hiw-stickywrap {
     display: block;
-    align-self: stretch;
+    align-self: start;
+    position: sticky;
+    /*
+      Vertically centre the pinned panel: half the viewport, less half the
+      panel's own height. `--hiw-panel-half` is ~26rem of chrome + 22rem viz
+      stack + dots, halved - adjust it if the panel's height changes.
+
+      The max() is a floor, not a preference: on a short viewport
+      `50vh - 13rem` can go negative and slide the panel under the fixed
+      4.25rem navbar, so never come closer than 6.25rem to the top.
+    */
+    --hiw-panel-half: 13rem;
+    top: max(6.25rem, calc(50vh - var(--hiw-panel-half)));
   }
 
   .hiw-sticky {
-    position: sticky;
-    top: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    height: 100vh;
-    padding-block: 2rem;
+  }
+}
+
+/*
+  Short viewports: a pinned panel taller than the space below the navbar would
+  have its dots clipped off-screen for the whole scroll, so stop pinning.
+*/
+@media (min-width: 900px) and (max-height: 700px) {
+  .hiw-stickywrap {
+    position: static;
   }
 }
 
 /* --- Reduced motion: no crossfade/dimming, tracking still works --- */
 
 .hiw-reduced .hiw-viz,
-.hiw-reduced .hiw-scene,
-.hiw-reduced .hiw-dot-btn {
+.hiw-reduced .hiw-scene-title,
+.hiw-reduced .hiw-scene-step,
+.hiw-reduced .hiw-dot-btn::before {
   transition: none;
 }
 
@@ -405,11 +574,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hiw-viz,
-  .hiw-scene,
-  .hiw-dot-btn {
+  .hiw-scene-title,
+  .hiw-scene-step,
+  .hiw-dot-btn::before {
     transition: none;
-  }
-  .hiw-scene {
-    opacity: 1;
   }
 }

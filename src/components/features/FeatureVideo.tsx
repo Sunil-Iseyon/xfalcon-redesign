@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Play } from 'lucide-react';
 import { track } from '@vercel/analytics';
@@ -21,6 +21,21 @@ interface FeatureVideoProps {
  */
 export function FeatureVideo({ video, label }: FeatureVideoProps) {
   const [playing, setPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  /*
+    Move focus to the player once it mounts. Pressing Enter on the poster button
+    unmounts that button, and the browser's fallback for a destroyed
+    activeElement is <body> - so a keyboard user landed at the top of the
+    document and had to Tab through the whole navbar to reach the video they had
+    just started (QA R4-19, WCAG 2.4.3). The <video> is focusable because it
+    carries `controls`.
+  */
+  useEffect(() => {
+    if (playing) {
+      videoRef.current?.focus();
+    }
+  }, [playing]);
 
   const start = () => {
     track('feature_video_play', { feature: video.slug });
@@ -30,7 +45,15 @@ export function FeatureVideo({ video, label }: FeatureVideoProps) {
   if (playing) {
     return (
       <div className="feature-video">
-        <video src={video.src} poster={video.poster} controls autoPlay playsInline />
+        <video
+          ref={videoRef}
+          src={video.src}
+          poster={video.poster}
+          controls
+          autoPlay
+          playsInline
+          aria-label={label.replace(/^Play the /, '')}
+        />
       </div>
     );
   }

@@ -2,8 +2,29 @@ import Image from 'next/image';
 import type { DemoEntry } from '@/lib/content';
 import './demo-card.css';
 
+/**
+ * Only the fields the card actually renders - deliberately not the whole
+ * DemoEntry. The resolved `path` would otherwise be serialised into the RSC
+ * payload of every page that renders a card, putting the internal demo folder
+ * names back into the HTML source that the slug URLs just removed.
+ */
+export type DemoCardEntry = Pick<
+  DemoEntry,
+  'title' | 'description' | 'slug' | 'thumbnail' | 'category'
+>;
+
+export function toDemoCardEntry({
+  title,
+  description,
+  slug,
+  thumbnail,
+  category,
+}: DemoEntry): DemoCardEntry {
+  return { title, description, slug, thumbnail, category };
+}
+
 interface DemoCardProps {
-  demo: DemoEntry;
+  demo: DemoCardEntry;
 }
 
 /**
@@ -20,7 +41,15 @@ function toImageSrc(thumbnail: string): string {
 
 export function DemoCard({ demo }: DemoCardProps) {
   return (
-    <a className="card demo-card" href={demo.path} target="_blank" rel="noopener noreferrer">
+    // Linked by slug, never by demo.path - src/proxy.ts rewrites /demos/<slug>/
+    // onto the real static file. The trailing slash matters: the demo HTML
+    // resolves its own assets relative to it.
+    <a
+      className="card demo-card"
+      href={`/demos/${demo.slug}/`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <div className="demo-card-thumb">
         {demo.thumbnail ? (
           <Image
@@ -34,14 +63,14 @@ export function DemoCard({ demo }: DemoCardProps) {
         ) : (
           <div className="card-sunken demo-card-placeholder">
             <Image
-              src="/brand/logo/mark_darkcyan_on_light_1024.png"
+              src="/brand/logo/mark_transparent_on_light.png"
               alt=""
               width={48}
               height={34}
               className="logo-light-only"
             />
             <Image
-              src="/brand/logo/mark_white_on_dark_1024.png"
+              src="/brand/logo/mark_transparent_on_dark.png"
               alt=""
               width={48}
               height={34}

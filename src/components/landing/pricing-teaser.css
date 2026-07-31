@@ -1,10 +1,17 @@
 /* Pricing teaser - three mini tier cards, one link to the full page */
 
+/*
+  Single column on phones. Three columns was the BASE rule with only gap and
+  padding changing at 768px, so a 390px viewport rendered three 106px cards with
+  72px of usable width: "Enterprise" (needs 75px) and "$7,000" painted outside
+  their own borders, and the installation line broke to one word per line
+  (QA R4-14). Three tiers stacked is the normal mobile pricing pattern anyway.
+*/
 .teaser-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   padding: 0;
   list-style: none;
 }
@@ -30,6 +37,16 @@
   margin-top: 1rem;
 }
 
+.teaser-breakdown {
+  margin-top: 0.5rem;
+}
+
+/* Sits under the recurring breakdown, dimmer, so the monthly figure still leads */
+.teaser-install {
+  margin-top: 0.25rem;
+  color: var(--text-muted);
+}
+
 .teaser-total-value {
   font-size: 1.5rem;
   font-weight: 700;
@@ -50,8 +67,9 @@
 
 @media (min-width: 768px) {
   .teaser-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
   }
 
   .teaser-card {

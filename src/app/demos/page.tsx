@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { getDemoEntries, getLandingContent, type DemoEntry } from '@/lib/content';
 import { LandingNavbar } from '@/components/landing/LandingNavbar';
 import { FooterSection } from '@/components/landing/FooterSection';
-import { DemoCard } from '@/components/demos/DemoCard';
+import { DemoCard, toDemoCardEntry } from '@/components/demos/DemoCard';
 import './demos-page.css';
 
 /* Demo paths are resolved by walking public/ at request time. */
@@ -10,11 +11,13 @@ export const dynamic = 'force-dynamic';
 
 const UNCATEGORIZED_GROUP = 'More';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/demos',
   title: 'Live demos',
   description:
     'Interactive xFalcon demo portals across healthcare, retail, manufacturing, finance, and more - real dashboards you can click through, no signup.',
-};
+  socialTitle: 'Live demos: see xFalcon on data like yours',
+});
 
 /**
  * Groups entries by category, sorting the groups alphabetically while keeping
@@ -63,8 +66,8 @@ export default function DemosPage() {
                 <h2 className="heading-3 demos-group-title">{group.category}</h2>
                 <ul className="demo-grid" role="list">
                   {group.demos.map((demo) => (
-                    <li key={demo.path}>
-                      <DemoCard demo={demo} />
+                    <li key={demo.slug}>
+                      <DemoCard demo={toDemoCardEntry(demo)} />
                     </li>
                   ))}
                 </ul>

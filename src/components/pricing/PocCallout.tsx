@@ -1,7 +1,7 @@
 import { POC } from '@/content/pricing';
 import './poc-callout.css';
 
-const POC_MAILTO = 'mailto:info@iseyon.com?subject=xFalcon%20POC';
+const POC_MAILTO = 'mailto:info@xfalcon.ai?subject=xFalcon%20POC';
 
 export function PocCallout() {
   return (

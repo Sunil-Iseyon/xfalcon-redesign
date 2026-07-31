@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import type { DemoEntry } from '@/lib/content';
-import { DemoCard } from '@/components/demos/DemoCard';
+import { DemoCard, type DemoCardEntry } from '@/components/demos/DemoCard';
 import './demo-teaser.css';
 
 interface DemoTeaserSectionProps {
@@ -8,7 +7,12 @@ interface DemoTeaserSectionProps {
   heading: string;
   subheading: string;
   ctaLabel: string;
-  demos: DemoEntry[];
+  /**
+   * Card-shaped entries only (see toDemoCardEntry) - these props are serialised
+   * into the page's RSC payload, and the resolved demo `path` would put the
+   * internal folder names back into the HTML source.
+   */
+  demos: DemoCardEntry[];
   total: number;
 }
 
@@ -31,7 +35,7 @@ export function DemoTeaserSection({
 
         <ul className="demo-grid demo-teaser-grid" role="list">
           {demos.map((demo) => (
-            <li key={demo.path}>
+            <li key={demo.slug}>
               <DemoCard demo={demo} />
             </li>
           ))}

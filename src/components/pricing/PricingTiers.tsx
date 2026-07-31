@@ -1,7 +1,7 @@
 import { PRICING_FOOTNOTE, TIERS } from '@/content/pricing';
 import './pricing-tiers.css';
 
-const DEMO_MAILTO = 'mailto:info@iseyon.com?subject=xFalcon%20demo%20request';
+const DEMO_MAILTO = 'mailto:info@xfalcon.ai?subject=xFalcon%20demo%20request';
 
 export function PricingTiers() {
   return (
@@ -37,10 +37,10 @@ export function PricingTiers() {
                   </dd>
                 </div>
                 <div className="tier-spec">
-                  <dt className="tier-spec-label">Monthly maintenance</dt>
+                  <dt className="tier-spec-label">Platform fee</dt>
                   <dd className="tier-spec-value">
-                    <span className="tier-spec-price">{tier.maintenance.price}</span>
-                    <span className="caption tier-spec-hours">{tier.maintenance.hours}</span>
+                    <span className="tier-spec-price">{tier.platform.price} / mo</span>
+                    <span className="caption tier-spec-hours">{tier.platform.hours}</span>
                   </dd>
                 </div>
               </dl>
@@ -49,7 +49,14 @@ export function PricingTiers() {
 
               <dl className="tier-specs tier-totals">
                 <div className="tier-spec">
-                  <dt className="tier-spec-label">Total monthly</dt>
+                  <dt className="tier-spec-label">
+                    Total monthly
+                    {/* Spell out the derivation - the totals used to look like
+                        they contradicted the "$10 per user" headline (QA R1-05). */}
+                    <span className="caption tier-total-note">
+                      {tier.platform.price} platform + {tier.perUserMonthly} per user
+                    </span>
+                  </dt>
                   <dd className="tier-total-value">{tier.totalMonthly}</dd>
                 </div>
                 <div className="tier-spec">

@@ -1,0 +1,66 @@
+/*
+  Proof band - a rule-bounded strip rather than a full section, so it reads as
+  a beat between how-it-works and pricing instead of competing with them.
+*/
+
+.social-proof {
+  padding-block: 2rem;
+}
+
+/*
+  Rules drawn as gradients rather than borders so they fade out at both ends.
+  This band sits directly under the tinted how-it-works chapter, and a hard 1px
+  edge here would be the one hard line on a page that otherwise separates
+  sections by wash only.
+*/
+.social-proof-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-block: 1.75rem;
+  background-image:
+    linear-gradient(to right, transparent, var(--border) 20%, var(--border) 80%, transparent),
+    linear-gradient(to right, transparent, var(--border) 20%, var(--border) 80%, transparent);
+  background-size: 100% 1px, 100% 1px;
+  background-position: top left, bottom left;
+  background-repeat: no-repeat;
+}
+
+.social-proof-line {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 42rem;
+}
+
+.social-proof-link {
+  display: inline-block;
+  padding-block: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.social-proof-link:hover {
+  border-bottom-color: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .social-proof-inner {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+@media (pointer: coarse) {
+  .social-proof-link {
+    padding-block: 0.625rem;
+  }
+}

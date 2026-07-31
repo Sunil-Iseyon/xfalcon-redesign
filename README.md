@@ -51,6 +51,46 @@ Notes:
 - Demo cards are sourced from `content/demos/*.md` through Tina schema.
 - Demo paths like `/demos/demo1/` are resolved to the matching `index.html` under `public/demos`.
 
+## Demo URLs
+
+Demos are linked by a human-readable slug, never by their folder path:
+
+```text
+/demos/rush-energy/   ->  public/demos/demo4/Falcon Manufacturing Bev - Red One/index.html
+```
+
+`src/proxy.ts` rewrites (never redirects) `/demos/<slug>/` and everything under
+it onto the real static files, so the clean URL stays in the address bar and the
+relative asset references inside each demo keep resolving. The old
+`/demos/demoN/...` URLs still work - they are the real files.
+
+The slug comes from the `slug:` line in `content/demos/*.md`, falling back to a
+kebab-case of the title (`Rush Energy - Energy Drink Analytics` ->
+`rush-energy`). The proxy cannot read the filesystem, so it reads a generated
+table instead. **After adding, renaming or re-pathing a demo, regenerate it and
+commit the result:**
+
+```bash
+node scripts/generate-demo-slug-map.mjs   # writes src/lib/demo-slug-map.ts
+npm test                                  # fails if the table has drifted
+```
+
+This is deliberately not a build hook - `next build` must not depend on the
+`public/demos` folder layout.
+
+## Social preview card
+
+`public/brand/hero/og_1200x630.png` is the Open Graph image every LinkedIn,
+Slack, and Twitter share renders. It is generated from HTML, not drawn by hand:
+
+```bash
+node scripts/og/generate-og-image.mjs   # rasterises scripts/og/og-card.html
+```
+
+Editing the card means editing `scripts/og/og-card.html` (it uses the real
+self-hosted Hanken Grotesk file and the real falcon mark, so it cannot drift
+from the site's typography) and committing the regenerated PNG.
+
 ## Vercel Deploy Notes
 
 1. In Vercel Project Settings, add:
@@ -59,7 +99,18 @@ Notes:
 NEXT_PUBLIC_TINA_CLIENT_ID
 TINA_TOKEN
 NEXT_PUBLIC_TINA_BRANCH
+NEXT_PUBLIC_APP_URL       # e.g. https://www.xfalcon.ai - see below
 ```
+
+`NEXT_PUBLIC_APP_URL` sets `metadataBase`, which every canonical tag, `og:url`,
+and `og:image` URL is resolved against. Without it the app falls back to
+`VERCEL_PROJECT_PRODUCTION_URL`, then `VERCEL_URL`, and only then to the
+canonical origin hardcoded in `src/lib/app-config.ts` - so on a preview
+deployment shares will unfurl with preview hostnames unless this is set
+explicitly on the Production environment. It must agree with `CANONICAL_ORIGIN`
+in that same file, which is what the JSON-LD, `robots.txt`, and `sitemap.xml`
+advertise; if the apex `xfalcon.ai` is canonical in DNS rather than the `www`
+host, change both.
 
 2. Build command can stay as default (`npm run build`) because it now runs Tina build first.
 

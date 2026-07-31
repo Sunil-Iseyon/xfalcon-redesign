@@ -16,7 +16,7 @@ const NAV_LINKS = [
   { label: 'Contact', href: '/#contact' },
 ];
 
-const BOOK_DEMO_HREF = 'mailto:info@iseyon.com?subject=xFalcon%20demo%20request';
+const BOOK_DEMO_HREF = 'mailto:info@xfalcon.ai?subject=xFalcon%20demo%20request';
 
 export function LandingNavbar() {
   const [open, setOpen] = useState(false);
@@ -46,8 +46,14 @@ export function LandingNavbar() {
     <header className="navbar" ref={menuRef}>
       <div className="container-xf navbar-inner">
         <Link href="/" className="navbar-logo" aria-label="xFalcon home" onClick={() => setOpen(false)}>
+          {/*
+            228x162 masters with real alpha. The previous *_1024.png marks were
+            square tiles with the theme background (#F5F8FC / #061122) baked in
+            opaque, so they showed as a hard-edged rectangle over the navbar's
+            translucent blurred backdrop.
+          */}
           <Image
-            src="/brand/logo/mark_darkcyan_on_light_1024.png"
+            src="/brand/logo/mark_transparent_on_light.png"
             alt=""
             width={38}
             height={27}
@@ -55,7 +61,7 @@ export function LandingNavbar() {
             priority
           />
           <Image
-            src="/brand/logo/mark_white_on_dark_1024.png"
+            src="/brand/logo/mark_transparent_on_dark.png"
             alt=""
             width={38}
             height={27}
@@ -76,7 +82,8 @@ export function LandingNavbar() {
         </nav>
 
         <div className="navbar-actions">
-          <span className="badge-soon navbar-badge">Desktop app - soon</span>
+          {/* QA R1-11: nav chip for the unshipped desktop app removed. The
+              footer's desktop-app line still carries the announcement. */}
           <ThemeToggle />
           <a
             className="btn btn-primary btn-sm navbar-cta"

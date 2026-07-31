@@ -13,13 +13,56 @@
   --surface-sunken: #edf2f9;
   --text: #0b1220;
   --text-secondary: #44556b;
-  --text-muted: #8a98ac;
+  /*
+    Darkened from #8A98AC (QA R4-20). That value peaked at 2.93:1 on white and
+    fell to 2.48:1 on the hero composite's tinted card, so every caption, unit
+    label, footnote and footer heading on the site failed AA. #606A79 is
+    pixel-verified at 4.64:1 on the hero card's tinted surface (the worst case),
+    4.66 on the section tint, 4.87 on --surface-sunken, 5.14 on --bg and 5.48 on
+    white. #636D7C was tried first and measured 4.44/4.46 on the two tinted
+    surfaces - close enough to look fine and still a failure, which is exactly
+    why these are sampled from rendered pixels rather than computed against an
+    assumed background.
+  */
+  --text-muted: #606a79;
   --border: #dce5ef;
   --border-strong: #c4d2e3;
-  --accent: #229cb1;
+  /*
+    For a border that is a control's ONLY affordance - .btn-secondary, the theme
+    toggle, an inactive progress dot. --border-strong is decorative (1.2-1.4:1)
+    and fails WCAG 1.4.11's 3:1 for UI components; this clears it on every light
+    surface including the section tint (3.12:1) without darkening every card edge
+    on the page (QA R4-21).
+  */
+  --border-interactive: #7d8691;
+  /*
+    Darkened from #229CB1 (QA R4-24, Kyle's call 2026-07-30).
+
+    #229CB1 has a relative luminance of 0.2729, which caps it at 3.25:1 on pure
+    white - so it could never satisfy WCAG 1.4.3 AA as text on ANY light surface
+    here, and even 56px figures ($3,500, +2.4 pts) missed the relaxed 3:1 large
+    text bar at 2.89 and 2.75. #187288 is the shallowest darkening that clears
+    4.5:1 on all four light surfaces: 5.52 on white, 5.19 on --bg, 4.91 on
+    --surface-sunken, 4.70 on the section tint. White on it is 5.52:1, which
+    also fixes .btn-primary, and it lifts the focus ring off 2.89:1.
+
+    Same hue, deeper value. Dark mode is untouched - #2ED1ED on navy is 10.31:1.
+    The soft/tint alphas below stay on the ORIGINAL hue on purpose: they are
+    washes behind content, never text, and the brighter hue keeps the wash from
+    going muddy.
+  */
+  --accent: #187288;
   --accent-bright: #2ed1ed;
   --accent-soft: rgba(34, 156, 177, 0.1);
+  --section-tint: rgba(34, 156, 177, 0.095);
   --accent-contrast: #ffffff;
+  /*
+    The brand's one non-accent hue, reserved for warnings and negative deltas
+    (see the xfalcon-brand skill). Same hex in both themes so it stays a single
+    brand constant; only ever used at large-text size or as a marker, since
+    3.4:1 on white passes AA for large text but not for body copy.
+  */
+  --negative: #e2685a;
   --shadow-card: 0 1px 2px rgba(11, 18, 32, 0.04), 0 8px 24px rgba(11, 18, 32, 0.06);
   --theme-color: #f5f8fc;
   color-scheme: light;
@@ -32,13 +75,21 @@
   --surface-sunken: #040a17;
   --text: #eaf2ff;
   --text-secondary: #b8c0cc;
-  --text-muted: #7e8696;
+  /* Nudged up from #7E8696, which just missed AA (4.35:1) on the hero card's
+     glow-tinted navy. #848c9c clears it. */
+  --text-muted: #848c9c;
   --border: #1d2a3a;
   --border-strong: #2a3b52;
+/* #546987, not the #4C5F7A first tried: that measured 2.90:1 on --bg and 2.65
+     on --surface-raised, i.e. still short of 3:1 on the surfaces these controls
+     actually sit on. This clears it on all three (3.37 / 3.18 / 3.08). */
+  --border-interactive: #546987;
   --accent: #2ed1ed;
   --accent-bright: #2ed1ed;
   --accent-soft: rgba(46, 209, 237, 0.1);
+  --section-tint: rgba(46, 209, 237, 0.085);
   --accent-contrast: #061122;
+  --negative: #e2685a;
   --shadow-card: none;
   --theme-color: #061122;
   color-scheme: dark;
@@ -55,10 +106,12 @@
   --color-text-muted: var(--text-muted);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
+  --color-border-interactive: var(--border-interactive);
   --color-accent: var(--accent);
   --color-accent-bright: var(--accent-bright);
   --color-accent-soft: var(--accent-soft);
   --color-accent-contrast: var(--accent-contrast);
+  --color-negative: var(--negative);
   /* absolute brand constants - never remapped */
   --color-xf-navy: #061122;
   --color-xf-cyan: #2ed1ed;
@@ -73,6 +126,12 @@
 
 html {
   scroll-behavior: smooth;
+  /*
+    The navbar is fixed and 69px tall, so an in-page anchor (#how-it-works,
+    #pricing from the mobile menu) parked its target ~5px behind the navbar and
+    clipped the eyebrow (QA R4-15). 5rem clears the bar with a little air.
+  */
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -113,13 +172,49 @@ body {
    ============================================================ */
 
 /* Section scaffolding: eyebrow -> h2 -> optional subhead -> content */
+/*
+  Section rhythm. Deliberately tighter than the 5/7rem it started at: at 7rem
+  every boundary stacked 112px + 112px = 224px of dead space (QA R1-01). 4/5rem
+  gives 128-160px combined, which still separates sections without the page
+  reading as mostly gaps. The hero keeps its own generous padding.
+*/
 .section {
-  padding-block: 5rem;
+  padding-block: 4rem;
 }
 @media (min-width: 768px) {
   .section {
-    padding-block: 7rem;
+    padding-block: 5rem;
   }
+}
+
+/*
+  Section tint (QA R1-02): differentiate sections with background instead of
+  distance, so the padding above can stay tight.
+
+  A gradient, not a flat fill, and deliberately no border: the tint fades up
+  from and back to transparent so there is never a hard edge between sections.
+  The 0 -> 14% ramp is long enough that the transition reads as a wash rather
+  than a band.
+
+  Used on exactly ONE section - how-it-works (QA R2-01). It started as
+  alternating bands (how-it-works / pricing / desktop-app) and read as zebra
+  striping; worse, even alternation distributes emphasis evenly, so the P3
+  desktop-app teaser got the same weight as the core narrative. One tinted
+  chapter on a white canvas reads as intentional stage-setting instead.
+
+  If a future section needs separation, the rule is: tint only non-adjacent
+  structural chapters, max two per page, and never a section that is already a
+  boxed card or a grid of cards. Do not add more hues - single-accent
+  discipline is the point.
+*/
+.section-tinted {
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--section-tint) 14%,
+    var(--section-tint) 86%,
+    transparent 100%
+  );
 }
 
 .container-xf {
@@ -227,7 +322,8 @@ body {
 .btn-secondary {
   background: transparent;
   color: var(--text);
-  border: 1px solid var(--border-strong);
+  /* The border IS the button - it needs 3:1, not a decorative hairline (R4-21) */
+  border: 1px solid var(--border-interactive);
 }
 .btn-secondary:hover {
   border-color: var(--accent);
@@ -237,6 +333,32 @@ body {
 .btn-sm {
   padding: 0.625rem 1.125rem;
   font-size: 0.875rem;
+}
+
+/* ============================================================
+   Touch target sizing (QA R4-16)
+
+   Measured targets were 36px (theme toggle, hamburger, .btn-sm), 22px (nav and
+   footer links), 17.5px (the proof-band link) and 10px (how-it-works dots) -
+   below WCAG 2.5.8's 24px AA minimum in most cases and well below the 44px
+   touch guideline in all of them.
+
+   Two tiers rather than one blanket size: everything clears 24px for a mouse,
+   and `pointer: coarse` (phones, tablets - including iPad landscape, which gets
+   the desktop nav at >=900px) expands to 44px. A single 44px rule would have
+   inflated the desktop navbar and flattened the .btn/.btn-sm distinction to
+   fix a problem mouse users do not have.
+   ============================================================ */
+
+@media (pointer: coarse) {
+  .btn-sm {
+    padding-block: 0.875rem;
+  }
+
+  .theme-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
 }
 
 /* Stat pills */
@@ -289,7 +411,7 @@ body {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 0.625rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-interactive);
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
@@ -308,7 +430,7 @@ body {
   margin-top: 0.875rem;
 }
 .section-header .subhead {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 /* Quiet reveal-on-scroll (added by Reveal client wrapper; no framer) */

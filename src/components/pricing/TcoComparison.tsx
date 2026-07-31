@@ -32,7 +32,11 @@ export function TcoComparison() {
           ))}
         </div>
 
-        <p className="subhead tco-closing">75-93% lower over two years.</p>
+        {/* Must track TCO_ROWS. It previously read "75-93% lower", directly
+            under a table showing 62-82% (QA R1-10). */}
+        <p className="subhead tco-closing">
+          62-82% lower over two years, depending on what you are replacing.
+        </p>
       </div>
     </section>
   );

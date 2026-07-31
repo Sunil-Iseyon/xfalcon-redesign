@@ -21,20 +21,27 @@ const SCENES = [
     body: 'xFalcon maps the warehouse in place, checks the model, and learns your definitions. Your data stays where it is.',
   },
   {
-    tag: 'No SQL required',
-    title: 'Ask the real question',
-    body: 'Use plain English. Follow any answer back to the tables, rules, and rows behind it.',
-  },
-  {
     tag: 'Every answer checked',
     title: 'It checks before it answers',
-    body: 'Every result is tested against live warehouse data. Memory, annotations, and self-correction carry what your team learns forward.',
+    body: 'Ask in plain English. Every result is tested against live warehouse data and follows back to the tables, rules, and rows behind it.',
+  },
+  {
+    tag: 'One governed answer',
+    title: 'Everyone gets the same answer',
+    body: 'Three people ask the same question three different ways. All three resolve to one governed definition - so the number in the board deck matches the number in the field.',
   },
   {
     tag: 'Ready before the meeting',
     title: 'Put the answer to work',
     body: 'The same governed logic powers daily briefs, QBR decks, and board-ready Excel and PowerPoint files.',
   },
+];
+
+/* Deliberately three phrasings of one question - the point is that they converge. */
+const ASKS = [
+  { who: 'VP', text: 'What was Q3 revenue?' },
+  { who: 'FIN', text: 'Show me total sales last quarter' },
+  { who: 'OPS', text: 'Q3 top line?' },
 ];
 
 function VizConnect() {
@@ -64,24 +71,6 @@ function VizConnect() {
   );
 }
 
-function VizAsk() {
-  return (
-    <div className="hiw-viz-body">
-      <div className="hiw-chat-question">Why did northeast margin drop in June?</div>
-      <div className="hiw-chat-answer">
-        <p className="hiw-chat-answer-lead">
-          Margin fell 3.2 points - freight surcharges on two distributors drove 80% of the change.
-        </p>
-        <div className="hiw-drill">
-          <span className="hiw-drill-row">ORDERS · 1,284 rows</span>
-          <span className="hiw-drill-row">FREIGHT_COSTS · rule: net of returns</span>
-          <span className="hiw-drill-row">DISTRIBUTOR_MASTER · 2 flagged</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function VizCheck() {
   return (
     <div className="hiw-viz-body">
@@ -91,7 +80,38 @@ function VizCheck() {
         <li className="hiw-check hiw-check-warn">Annotation: Q3 has a known 2-day gap - flagged</li>
         <li className="hiw-check hiw-check-pass">Aggregation guard: totals computed server-side</li>
       </ul>
+      <div className="hiw-drill">
+        <span className="hiw-drill-row">ORDERS · 1,284 rows</span>
+        <span className="hiw-drill-row">FREIGHT_COSTS · rule: net of returns</span>
+      </div>
       <p className="hiw-systems caption">Memory · Annotations · Self-Correction</p>
+    </div>
+  );
+}
+
+function VizConsistency() {
+  return (
+    <div className="hiw-viz-body">
+      <ul className="hiw-asks" role="list">
+        {ASKS.map((ask) => (
+          <li key={ask.who} className="hiw-ask">
+            <span className="hiw-ask-who" aria-hidden="true">
+              {ask.who}
+            </span>
+            <span className="hiw-ask-text">{ask.text}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="hiw-converge" aria-hidden="true">
+        <span className="hiw-converge-line" />
+        <span className="hiw-converge-line" />
+        <span className="hiw-converge-line" />
+      </div>
+      <div className="hiw-one-answer">
+        <p className="hiw-one-answer-value">$14.2M</p>
+        <p className="hiw-one-answer-rule">revenue = net of returns, excludes cancelled orders</p>
+      </div>
+      <p className="hiw-systems caption">One definition · Three questions · Same answer</p>
     </div>
   );
 }
@@ -120,7 +140,8 @@ function VizDeliver() {
   );
 }
 
-const VIZZES = [VizConnect, VizAsk, VizCheck, VizDeliver];
+/* Index-aligned with SCENES - keep the two arrays in the same order. */
+const VIZZES = [VizConnect, VizCheck, VizConsistency, VizDeliver];
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
@@ -166,11 +187,14 @@ export function HowItWorksSection() {
   };
 
   return (
-    <section className={`section hiw${reduced ? ' hiw-reduced' : ''}`} id="how-it-works">
+    <section className={`section section-tinted hiw${reduced ? ' hiw-reduced' : ''}`} id="how-it-works">
       <div className="container-xf">
         <div className="section-header">
           <p className="eyebrow">How xFalcon works</p>
-          <h2 className="heading-2">From live data to a decision you can defend</h2>
+          <h2 className="heading-2">See it in action</h2>
+          <p className="subhead">
+            One governed definition, from live data to a decision you can defend.
+          </p>
         </div>
 
         <div className="hiw-layout">

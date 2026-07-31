@@ -4,7 +4,7 @@ import type { NextConfig } from "next";
  * Applied to all Next.js app routes (everything except /demos/* and /admin/*).
  *
  * Content-Security-Policy is NOT set here — it is issued per-request by
- * src/middleware.ts using a cryptographic nonce, which eliminates the need for
+ * src/proxy.ts using a cryptographic nonce, which eliminates the need for
  * 'unsafe-inline' in script-src.  All other hardening headers are static and
  * safe to set from next.config.ts.
  */
@@ -55,6 +55,27 @@ const STATIC_ASSET_HEADERS = [
 ];
 
 const nextConfig: NextConfig = {
+  /**
+   * Clean demo URLs (/demos/rush-energy/) are rewritten to the real static file
+   * by src/proxy.ts, and the demo HTML resolves its assets relative to that
+   * trailing slash - Next's built-in trailing-slash redirect would strip it
+   * before the proxy ever ran and every relative asset would 404 one level up.
+   * The proxy issues the same 308 for every other route instead, and /admin/
+   * (outside the proxy matcher) is redirected below.
+   */
+  skipTrailingSlashRedirect: true,
+
+  async redirects() {
+    return [
+      {
+        // Tina's admin entry point; src/app/admin/page.tsx handles bare /admin.
+        source: "/admin/",
+        destination: "/admin/index.html",
+        permanent: false,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
@@ -67,8 +88,15 @@ const nextConfig: NextConfig = {
         headers: STATIC_ASSET_HEADERS,
       },
       {
+        // TinaCMS admin. X-Robots-Tag as well as the robots.txt disallow in
+        // src/app/robots.ts: robots.txt asks crawlers not to fetch a URL, but
+        // only noindex removes one Google already knows about, and /admin/
+        // returns a real 200 page today (QA SEO audit P1-3).
         source: "/admin/(.*)",
-        headers: STATIC_ASSET_HEADERS,
+        headers: [
+          ...STATIC_ASSET_HEADERS,
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
       },
     ];
   },

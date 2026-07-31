@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { getLandingContent } from '@/lib/content';
 import { LandingNavbar } from '@/components/landing/LandingNavbar';
 import { CTASection } from '@/components/landing/CTASection';
@@ -9,11 +10,13 @@ import { PocCallout } from '@/components/pricing/PocCallout';
 import { AiModelSection } from '@/components/pricing/AiModelSection';
 import { TcoComparison } from '@/components/pricing/TcoComparison';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/pricing',
   title: 'Pricing',
   description:
-    'Every xFalcon tier is $10 per user per month - tiers differ by analytical complexity, not just seats. Start with a $3,500 proof of concept on your own data, credited toward installation.',
-};
+    '$10 per user per month plus a fixed platform fee. Start with a $3,500 proof of concept on your own data, credited if you move ahead.',
+  socialTitle: 'Pricing: enterprise BI without the enterprise bill',
+});
 
 export default function PricingPage() {
   const content = getLandingContent();

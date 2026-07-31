@@ -51,6 +51,9 @@
 }
 
 .navbar-link {
+  display: inline-flex;
+  align-items: center;
+  padding-block: 0.5rem;
   font-size: 0.9375rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -68,9 +71,6 @@
   margin-left: auto;
 }
 
-.navbar-badge {
-  display: none;
-}
 
 .navbar-cta {
   display: none;
@@ -122,8 +122,3 @@
   }
 }
 
-@media (min-width: 1100px) {
-  .navbar-badge {
-    display: inline-flex;
-  }
-}

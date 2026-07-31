@@ -1,7 +1,12 @@
-/* Pricing hero - clears the fixed navbar, same rhythm as the landing hero */
+/*
+  Pricing hero - clears the fixed navbar, same rhythm as the landing hero.
 
+  Mobile top padding is 7.5rem rather than 10rem: 160px of padding over a 69px
+  navbar pushed the first CTA to y=935 on an 844px phone fold, so the page
+  opened with no way to act (QA R4-18). Desktop keeps the generous 12rem.
+*/
 .pricing-hero {
-  padding-top: 10rem;
+  padding-top: 7.5rem;
   padding-bottom: 3.5rem;
   position: relative;
 }

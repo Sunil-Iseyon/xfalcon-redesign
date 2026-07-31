@@ -144,6 +144,13 @@ export default defineConfig({
             required: true,
             description: 'Use a folder path like /demos/demo1/; it will resolve to index.html automatically.',
           },
+          {
+            type: 'string',
+            name: 'slug',
+            label: 'Public Slug',
+            description:
+              'Kebab-case URL the demo is linked as, e.g. rush-energy -> /demos/rush-energy/. Derived from the title when left blank. After changing this, run: node scripts/generate-demo-slug-map.mjs',
+          },
           { type: 'image', name: 'thumbnail', label: 'Thumbnail' },
           { type: 'string', name: 'category', label: 'Category' },
           { type: 'boolean', name: 'featured', label: 'Featured' },

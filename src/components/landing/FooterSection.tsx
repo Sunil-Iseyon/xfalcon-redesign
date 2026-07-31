@@ -8,6 +8,9 @@ interface FooterSectionProps {
   email: string;
 }
 
+const NOTIFY_MAILTO =
+  'mailto:info@xfalcon.ai?subject=Notify%20me%20about%20the%20xFalcon%20desktop%20app';
+
 const LINK_GROUPS = [
   {
     title: 'Product',
@@ -21,7 +24,7 @@ const LINK_GROUPS = [
   {
     title: 'Company',
     links: [
-      { label: 'Contact', href: 'mailto:info@iseyon.com' },
+      { label: 'Contact', href: 'mailto:info@xfalcon.ai' },
       { label: 'Iseyon', href: 'https://iseyon.com' },
     ],
   },
@@ -42,15 +45,16 @@ export function FooterSection({ description, copyright, email }: FooterSectionPr
         <div className="footer-grid">
           <div className="footer-brand">
             <Link href="/" className="footer-logo" aria-label="xFalcon home">
+              {/* Transparent 228x162 masters - see the note in LandingNavbar. */}
               <Image
-                src="/brand/logo/mark_darkcyan_on_light_1024.png"
+                src="/brand/logo/mark_transparent_on_light.png"
                 alt=""
                 width={34}
                 height={24}
                 className="logo-light-only"
               />
               <Image
-                src="/brand/logo/mark_white_on_dark_1024.png"
+                src="/brand/logo/mark_transparent_on_dark.png"
                 alt=""
                 width={34}
                 height={24}
@@ -89,6 +93,22 @@ export function FooterSection({ description, copyright, email }: FooterSectionPr
             </div>
           ))}
         </div>
+
+        {/*
+          The desktop app used to be a full homepage section for an unshipped
+          feature (QA R1-11, open since round 1). One footer line carries the
+          same information without giving vaporware the same weight as the
+          product, and keeps a way for interested people to raise their hand.
+        */}
+        <p className="footer-note">
+          <span className="badge-soon">Desktop app - soon</span>
+          <span className="footer-note-text">
+            A native Mac and Windows app is on the way.{' '}
+            <a className="footer-note-link" href={NOTIFY_MAILTO}>
+              Notify me
+            </a>
+          </span>
+        </p>
 
         <div className="footer-bottom">
           <p className="caption">{copyright}</p>

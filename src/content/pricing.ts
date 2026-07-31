@@ -11,7 +11,14 @@ export interface PricingTier {
   complexity: string;
   perUserMonthly: string;
   installation: { price: string; hours: string };
-  maintenance: { price: string; hours: string };
+  /**
+   * The fixed monthly component - a platform fee that also buys the support
+   * hours shown. Presented as "platform" rather than "maintenance" because
+   * `totalMonthly` is derived as (seats x perUserMonthly) + this, and a buyer
+   * doing that arithmetic needs the fixed part named for what it is (QA R1-05).
+   * Bare figures here; views add the "/ mo" unit.
+   */
+  platform: { price: string; hours: string };
   totalMonthly: string;
   yearOneTotal: string;
   highlighted?: boolean;
@@ -27,7 +34,7 @@ export const TIERS: PricingTier[] = [
     complexity: '1-2 fact tables, 2-3 data sources',
     perUserMonthly: '$10',
     installation: { price: '$12,000', hours: '80 hrs one-time' },
-    maintenance: { price: '$1,200 / mo', hours: '8 hrs / month' },
+    platform: { price: '$1,200', hours: 'includes 8 hrs / month' },
     totalMonthly: '$1,300',
     yearOneTotal: '$27,600',
   },
@@ -38,7 +45,7 @@ export const TIERS: PricingTier[] = [
     complexity: '3-8 fact tables, 4-6 data sources',
     perUserMonthly: '$10',
     installation: { price: '$18,000', hours: '120 hrs one-time' },
-    maintenance: { price: '$2,400 / mo', hours: '16 hrs / month' },
+    platform: { price: '$2,400', hours: 'includes 16 hrs / month' },
     totalMonthly: '$2,650',
     yearOneTotal: '$49,800',
     highlighted: true,
@@ -50,7 +57,7 @@ export const TIERS: PricingTier[] = [
     complexity: 'Unlimited fact tables, cross-domain logic',
     perUserMonthly: '$10',
     installation: { price: '$30,000', hours: '200 hrs one-time' },
-    maintenance: { price: '$6,000 / mo', hours: '40 hrs / month' },
+    platform: { price: '$6,000', hours: 'includes 40 hrs / month' },
     totalMonthly: '$7,000',
     yearOneTotal: '$114,000',
   },
@@ -138,4 +145,4 @@ export const TCO_ROWS: TcoRow[] = [
 ];
 
 export const PRICING_FOOTNOTE =
-  'Total monthly = per-user fees + maintenance. Installation is one-time. Tier placement is based on analytical complexity, not just user count. AI model usage billed separately. US pricing shown; regional taxes and hosting may vary.';
+  'Total monthly = platform fee + (users x $10). Installation is one-time. Tier placement is based on analytical complexity, not just user count. AI model usage billed separately. US pricing shown; regional taxes and hosting may vary.';
