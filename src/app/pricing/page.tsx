@@ -26,9 +26,11 @@ export default function PricingPage() {
       <LandingNavbar />
       <main>
         <PricingHero />
+        {/* The AI model choice is the billing-model frame - platform pricing is
+            a component of one of these three paths - so it precedes the tiers. */}
+        <AiModelSection />
         <PricingTiers />
         <PocCallout />
-        <AiModelSection />
         <TcoComparison />
         <CTASection {...content.cta} email={content.contactInfo.email} />
       </main>

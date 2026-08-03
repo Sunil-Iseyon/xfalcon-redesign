@@ -4,10 +4,12 @@
   padding-top: 0;
 }
 
+/* margin-top matches .ai-grid - both grids hang off a .section-header */
 .tiers-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
+  margin-top: 3rem;
   padding: 0;
   list-style: none;
 }
@@ -154,6 +156,7 @@
   .tiers-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
+    margin-top: 3.5rem;
   }
 
   .tier-card {

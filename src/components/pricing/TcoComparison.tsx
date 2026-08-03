@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { TCO_HEADING, TCO_ROWS, TCO_SUBHEAD } from '@/content/pricing';
+import { TCO_CLOSING, TCO_HEADING, TCO_ROWS, TCO_SUBHEAD } from '@/content/pricing';
 import './tco.css';
 
 const MAX_COST = Math.max(...TCO_ROWS.map((row) => row.costValue));
@@ -14,7 +14,9 @@ export function TcoComparison() {
           <p className="caption tco-source">{TCO_SUBHEAD}</p>
         </div>
 
-        <div className="tco-rows">
+        {/* Same card vocabulary as the tier cards above - the chart is the last
+            column of that table, not a separate exhibit. */}
+        <div className="card tco-card">
           {TCO_ROWS.map((row) => (
             <div key={row.label} className={row.isXfalcon ? 'tco-row tco-row-xf' : 'tco-row'}>
               <div className="tco-row-head">
@@ -27,16 +29,15 @@ export function TcoComparison() {
                   style={{ '--bar-scale': row.costValue / MAX_COST } as CSSProperties}
                 />
               </div>
+              {/* Derived from the same tier the table above publishes, so the
+                  bar can be checked against it without leaving the page. */}
+              {row.derivation ? <p className="caption tco-derivation">{row.derivation}</p> : null}
               {row.note ? <p className="caption tco-note">{row.note}</p> : null}
             </div>
           ))}
         </div>
 
-        {/* Must track TCO_ROWS. It previously read "75-93% lower", directly
-            under a table showing 62-82% (QA R1-10). */}
-        <p className="subhead tco-closing">
-          62-82% lower over two years, depending on what you are replacing.
-        </p>
+        <p className="subhead tco-closing">{TCO_CLOSING}</p>
       </div>
     </section>
   );

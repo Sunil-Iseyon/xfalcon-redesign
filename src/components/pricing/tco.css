@@ -1,4 +1,11 @@
-/* Two-year TCO - plain horizontal bars, width driven by --bar-scale (0-1) */
+/*
+  Two-year TCO - plain horizontal bars, width driven by --bar-scale (0-1).
+
+  Housed in the same card as the tier cards above (.card + tier-card padding and
+  the .tier-divider hairline between rows) so the chart reads as the last row of
+  the pricing table rather than a separate exhibit. The bars are the only thing
+  here the tier cards do not already have.
+*/
 
 .tco-section {
   padding-top: 0;
@@ -6,14 +13,19 @@
 
 .tco-source {
   margin-top: 1rem;
+  max-width: 60rem;
 }
 
-.tco-rows {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
+.tco-card {
   margin-top: 3rem;
-  max-width: 52rem;
+  padding: 2rem 1.75rem;
+  max-width: 56rem;
+}
+
+.tco-row + .tco-row {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
 }
 
 .tco-row-head {
@@ -23,6 +35,7 @@
   gap: 1rem;
 }
 
+/* Matches .tier-spec-label / .tier-spec-price */
 .tco-label {
   font-size: 0.9375rem;
   font-weight: 500;
@@ -62,6 +75,11 @@
   background: var(--accent);
 }
 
+/* The build-up under the xFalcon bar - quiet, it is a citation not a claim. */
+.tco-derivation {
+  margin-top: 0.5rem;
+}
+
 .tco-note {
   margin-top: 0.5rem;
   color: var(--accent);
@@ -74,8 +92,9 @@
 }
 
 @media (min-width: 768px) {
-  .tco-rows {
+  .tco-card {
     margin-top: 3.5rem;
+    padding: 2.25rem 2rem;
   }
 
   .tco-label,

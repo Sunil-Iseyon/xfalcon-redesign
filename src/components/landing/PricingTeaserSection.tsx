@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { PER_USER_PRICE, POC, TIERS } from '@/content/pricing';
+import { PER_USER_PRICE, POC, TIERS, tierFigures } from '@/content/pricing';
 import './pricing-teaser.css';
 
 /*
@@ -21,30 +21,34 @@ export function PricingTeaserSection() {
         </div>
 
         <ul className="teaser-grid" role="list">
-          {TIERS.map((tier) => (
-            <li key={tier.name} className="card teaser-card">
-              <h3 className="teaser-name">{tier.name}</h3>
-              <p className="caption teaser-users">{tier.users}</p>
-              <p className="teaser-total">
-                <span className="teaser-total-value">{tier.totalMonthly}</span>
-                <span className="teaser-total-unit">/ mo total</span>
-              </p>
-              {/* Without this the total reads as contradicting the $10 headline (QA R1-05). */}
-              <p className="caption teaser-breakdown">
-                {tier.platform.price} platform + {tier.perUserMonthly} per user
-              </p>
-              {/*
-                The one-time installation fee is stated here rather than only on
-                /pricing (QA R3-03): a buyer who reads "$1,300 / mo total" and
-                then meets a $12,000 installation line one click later feels
-                sandbagged. The figure is public either way, so pre-framing it
-                costs nothing and the transparency is the section's whole pitch.
-              */}
-              <p className="caption teaser-install">
-                + {tier.installation.price} one-time installation
-              </p>
-            </li>
-          ))}
+          {TIERS.map((tier) => {
+            const figures = tierFigures(tier);
+
+            return (
+              <li key={tier.name} className="card teaser-card">
+                <h3 className="teaser-name">{tier.name}</h3>
+                <p className="caption teaser-users">{tier.users}</p>
+                <p className="teaser-total">
+                  <span className="teaser-total-value">{figures.monthlyTotal}</span>
+                  <span className="teaser-total-unit">/ mo total</span>
+                </p>
+                {/* Without this the total reads as contradicting the $10 headline (QA R1-05). */}
+                <p className="caption teaser-breakdown">
+                  {figures.platform} platform + {figures.perUser} per user
+                </p>
+                {/*
+                  The one-time installation fee is stated here rather than only on
+                  /pricing (QA R3-03): a buyer who reads "$1,300 / mo total" and
+                  then meets a $12,000 installation line one click later feels
+                  sandbagged. The figure is public either way, so pre-framing it
+                  costs nothing and the transparency is the section's whole pitch.
+                */}
+                <p className="caption teaser-install">
+                  + {figures.installation} one-time installation
+                </p>
+              </li>
+            );
+          })}
         </ul>
 
         <Link className="btn btn-secondary teaser-cta" href="/pricing">
