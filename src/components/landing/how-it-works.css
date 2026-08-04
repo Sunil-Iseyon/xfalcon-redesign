@@ -552,8 +552,14 @@
 /*
   Short viewports: a pinned panel taller than the space below the navbar would
   have its dots clipped off-screen for the whole scroll, so stop pinning.
+
+  Threshold is measured, not guessed: the panel (chrome + viz stack + dots) is
+  446px tall, and the sticky offset floors at 6.25rem (100px), so it needs
+  546px of viewport to fit with room to spare. 700px was disabling the pin for
+  a wide band of ordinary windows (546-700px) that fit it fine; 600px leaves a
+  ~54px margin above the real requirement instead.
 */
-@media (min-width: 900px) and (max-height: 700px) {
+@media (min-width: 900px) and (max-height: 600px) {
   .hiw-stickywrap {
     position: static;
   }
